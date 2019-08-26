@@ -1,0 +1,28 @@
+* Index
+** Parts:
+[[./orders/index.org]]
+
+** Plans:
+*** Notes:
+**** Sketch
+#+BEGIN_SRC
+
+     [12v Power]--+------------+
+                  |            |
+                  V            |
+            +-----------+      |             +----------------------+
+            |   ESP32   |      V             | Rrail                |
+            |           |--[DRV8825]---------|--[Stepper]           |
+    [WIFI]--|           |                    +----------------------+
+            |           |--[IR]-----------+
+  [Button]--|           |                 |
+            |           |--[Optocoupler]--+
+            |           |                 |
+            +-----------+                 |
+                                          V
+                                        [Cam]
+
+#+END_SRC
+***** Questions:
+****** TODO Limit Switches?
+****** TODO LEDs or LCD for feedback? 
