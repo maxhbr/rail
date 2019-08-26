@@ -5,6 +5,7 @@
 ** Plans:
 *** Notes:
 **** Sketch
+***** Electric components
 #+BEGIN_SRC
 
      [12v Power]--+------------+
@@ -12,7 +13,7 @@
                   V            |
             +-----------+      |             +----------------------+
             |   ESP32   |      V             | Rrail                |
-            |           |--[DRV8825]---------|--[Stepper]           |
+            |  NodeMCU  |--[DRV8825]---------|--[Stepper]           |
     [WIFI]--|           |                    +----------------------+
             |           |--[IR]-----------+
   [Button]--|           |                 |
@@ -23,6 +24,44 @@
                                         [Cam]
 
 #+END_SRC
-***** Questions:
-****** TODO Limit Switches?
-****** TODO LEDs or LCD for feedback? 
+****** Questions:
+- TODO Limit Switches?
+- TODO LEDs or LCD for feedback? 
+
+***** Top Down View
+#+BEGIN_SRC
+                   ###############
+              +---+#      |      #+---+
+              |   |#      |      #|   |
+              | B |#      |      #| E |
+              | a |#      |      #| S |
+              | t |#+-----------+#| P |
+              | t |#|###########|#|   |
+              | e |#|###########|#+---+
+              | r |#|###########|#
+              | y |#|###########|#
+              |   |#+-----------+#
+              +---+#      |      #
+                   #      |      #
+                   #      |      #
+                   #      |      #
+                   #      |      #
+                   #      |      #
+                   #      |      #
+                   #      |      #
+                   #      |      #
+                   ###############
+                      |   |   |
+                      |  ###  |
+                      |  ###  |
+                      |   |   |
+                     +---------+
+                     |         |
+                     | Stepper |
+                     |         |
+                     +---------+
+#+END_SRC
+
+
+
+
