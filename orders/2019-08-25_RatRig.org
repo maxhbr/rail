@@ -1,0 +1,25 @@
+Item  Sku  Qty  Subtotal        
+C-Beam Linear Actuator Bundle  HW1517GK-BUNDLE  1   €125.93         
+Actuator Size & Rail Colour                 
+1 x C-Beam Linear Actuator Bundle - 250mm - Black €81.00  HW1540GK                
+Add 1 x Motor (Optional)                 
+1 x Nema 23 Stepper Motor - High Torque - 1.8degree/step, 345oz-in €37.99  HW1462EC                
+Add 1 x C-Beam Shield (Optional) - Note: Only for 250mm and 500mm versions                 
+1 x C-Beam Shield (Length: 250mm) €6.94  HW1233PC                
+Rat Rig Big Plate - 3/8" and 1/4" Tripod Mount Plate Kit   HW1346PK  2  €11.98         
+T-Nut Square - M5 (1 Unit)   HW1522NC  20  €4.00         
+T-Nut - Double (1 Unit)   HW1029NC  2  €0.34         
+Custom T-Nut 1/4" - For V-Slot (Single unit)   HW1026NC  6  €2.70         
+Rat Rig 1/4" Tripod Mount Plate Kit   HW1345PK  2  €9.60         
+Rat Rig Custom Screw for VSlot (Photography 1/4"-20)   RR1131SC  2  €1.00         
+C-Beam Gantry Plate   HW1206PC  1  €10.94         
+Button Head Screws M5 (25 Pack) (Length: 8mm)   HW1062SK  1  €1.80         
+Button Head Screws M5 (25 Pack) (Length: 25mm)   HW1056SK  1  €2.03         
+Drop In T-Nut M5 - for V-Slot - (Single)   HW1030NC  10  €1.40         
+Battery Pack - 12V   RRBATTGP  1  €7.50         
+AC Power Adapter - Euro plug 12V   RRACPLGP  1  €9.99         
+Subtotal   €189.21         
+Shipping & Handling   €13.00         
+Grand Total (Excl.Tax)   €166.83         
+Tax   €38.37        
+Grand Total (Incl.Tax)   €205.20         

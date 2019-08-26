@@ -1,0 +1,8 @@
+* 2019-08-25
+[[./2019-08-25_RatRig.org]]
+** AZDelivery 3 x DRV8825 Schrittmotor-Treiber-Modul mit Kühlkörper
+- https://www.amazon.de/gp/product/B07CNJR2Z6 7,99 €
+** HALJIA Digital 38 KHz Infrarot-IR-Empfänger Sensor-Modul mit Transmitter Module Kit Set für Arduino
+- https://www.amazon.de/gp/product/B07BFNGF53 8,99 €
+* 2019-08-26
+
