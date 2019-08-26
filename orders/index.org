@@ -5,4 +5,5 @@
 ** HALJIA Digital 38 KHz Infrarot-IR-Empfänger Sensor-Modul mit Transmitter Module Kit Set für Arduino
 - https://www.amazon.de/gp/product/B07BFNGF53 8,99 €
 * 2019-08-26
-
+** STEPPERONLINE Schrittmotor Nema 17 Stepper Motor 59Ncm 2A 1.8deg 2 Phase 4-Draht Stepping Motor w/1m Kabel & Verbinder
+- https://www.amazon.de/dp/B00PNEQKC0 12,99 €
