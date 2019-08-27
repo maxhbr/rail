@@ -1,0 +1,6 @@
+* Editoren für Schaltpläne:
+** KiCad 
+- https://github.com/jdunmire/kicad-ESP8266
+- https://github.com/KiCad/kicad-footprints
+** geda mit gschem
+- https://github.com/markrages/geda-ESP8266
