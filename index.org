@@ -77,3 +77,8 @@
 *** WIFI
 - https://glaskugelsehen.wordpress.com/2016/01/08/sony-camera-remote-control-mit-esp8266/
 
+* Andere Schienen:
+https://m.reichelt.de/mikrofon-kupplung-f-funkgeraete-4-polig-m-604-p11162.html?&trstct=lsbght_sldr::15427
+** WeMacro
+** StackShot
+
