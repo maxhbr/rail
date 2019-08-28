@@ -9,3 +9,8 @@
 ** STEPPERONLINE Schrittmotor Nema 17 Stepper Motor 59Ncm 2A 1.8deg 2 Phase 4-Draht Stepping Motor w/1m Kabel & Verbinder
 - https://www.amazon.de/dp/B00PNEQKC0 12,99 €
 ** ESP32 NodeMCU
+* 2019-08-28
+** MENGS® PU200 Kamera Schnellwechselplatte
+- https://www.amazon.de/gp/product/B00L8QKHUS
+** MENGS® DM-60N Schnellwechselplatte
+- https://www.amazon.de/gp/product/B01MDM2IZ5

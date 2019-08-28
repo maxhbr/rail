@@ -4,3 +4,6 @@
 - https://github.com/KiCad/kicad-footprints
 ** geda mit gschem
 - https://github.com/markrages/geda-ESP8266
+** FidoCadJ
+- download from: http://darwinne.github.io/FidoCadJ/
+** XCircuit
