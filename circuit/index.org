@@ -1,3 +1,5 @@
+* Quellen:
+- https://www.instructables.com/id/WHAT-ENGINE-IS-THAT-Step-Motor-Laboratory/
 * Editoren für Schaltpläne:
 ** KiCad 
 - https://github.com/jdunmire/kicad-ESP8266
@@ -7,3 +9,4 @@
 ** FidoCadJ
 - download from: http://darwinne.github.io/FidoCadJ/
 ** XCircuit
+
