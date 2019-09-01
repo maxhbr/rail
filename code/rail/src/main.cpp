@@ -2,7 +2,8 @@
 #include <Ticker.h>
 
 #include "Motor.h"
-#include "IrSony.h"
+// #include "IrSony.h"
+#include "SerialCommandDispatcher.h"
 
 const int button_clockwise = 16;
 const int button_counter_clockwise = 4;
@@ -12,44 +13,34 @@ const int button_modehalfer = 5;
 Ticker motorOffTimer;
 
 Motor motor(32, 33, 25, 26, 27, 14, 12);
-IrSony ir_sony(2);
+// IrSony ir_sony(2);
+
+const SerialCommand commandtable[] = {
+    {key_arrow_left, [](){
+                         motor.set_direction(0);
+                         motor.step(1);
+                     }},
+    {key_arrow_right, [](){
+                         motor.set_direction(1);
+                         motor.step(1);
+                     }},
+    {key_arrow_up, [](){
+                       motor.add_speed(1);
+                       Serial.println("speed = " + String(motor.get_speed()));
+                      }},
+    {key_arrow_down, [](){
+                         motor.add_speed(-1);
+                         Serial.println("speed = " + String(motor.get_speed()));
+                     }},
+};
+SerialCommandDispatcher commander(Serial, commandtable, sizeof(commandtable) / sizeof(SerialCommand));
 
 int mode = 1;
 
 void setup() {
     Serial.begin(9600);
-    pinMode(button_clockwise, INPUT_PULLUP);
-    pinMode(button_counter_clockwise, INPUT_PULLUP);
-    pinMode(button_single_step, INPUT_PULLUP);
-    pinMode(button_modehalfer, INPUT_PULLUP);
-
-    // attachInterrupt(digitalPinToInterrupt(button_single_step),
-    //                 []{
-    //                     motor.power_cycle(2);
-    //                     motor.step(20);
-    //                     delay(10);
-    //                 }, FALLING);
-    attachInterrupt(digitalPinToInterrupt(button_modehalfer),
-                    []{
-                        mode *= 2;
-                        if (mode > 32)
-                            mode = 1;
-                        motor.set_mode(mode);
-                    }, FALLING);
 }
 
 void loop() {
-    if (digitalRead(button_single_step) == LOW) {
-        ir_sony.shoot();
-        motor.power_cycle(2);
-        delay(300);
-        motor.step(10);
-        delay(700);
-    }
-    else if (digitalRead(button_clockwise) == LOW || digitalRead(button_counter_clockwise) == LOW)
-    {
-        motor.power_cycle(2);
-        motor.set_direction(digitalRead(button_clockwise));
-        motor.step();
-    }
+    commander.process();
 }
