@@ -17,16 +17,16 @@
 
 IrSony::IrSony(int _pin)
 {
-  pin = _pin;
-  pinMode(pin, OUTPUT);
+    pin = _pin;
+    pinMode(pin, OUTPUT);
 }
 
 void IrSony::shoot(int microseconds)
 {
-  Serial.println("IrSony::shoot");
-  IRsend irsend(pin, true); // TODO: should be in field
-  for (int i=0; i<3; i++){
-    irsend.sendSony(0xB4B8F, 20);
-  }
-  delayMicroseconds(microseconds);
+    Serial.println("IrSony::shoot");
+    IRsend irsend(pin, true); // TODO: should be in field
+    for (int i=0; i<3; i++){
+        irsend.sendSony(0xB4B8F, 20);
+    }
+    delayMicroseconds(microseconds);
 }

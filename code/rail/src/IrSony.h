@@ -7,12 +7,12 @@
 
 class IrSony
 {
- private:
-  int pin;
+private:
+    int pin;
 
- public:
-  IrSony(int _pin);
-  void shoot(int microseconds = 0);
+public:
+    IrSony(int _pin);
+    void shoot(int microseconds = 0);
 };
 
 #endif /* IR_SONY_H */

@@ -39,7 +39,7 @@ void setup() {
 }
 
 void loop() {
-  if (digitalRead(button_single_step) == LOW) {
+    if (digitalRead(button_single_step) == LOW) {
         ir_sony.shoot();
         motor.power_cycle(2);
         delay(300);
