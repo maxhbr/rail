@@ -14,7 +14,20 @@ private:
     int pin_mode1;
     int pin_mode0;
     int pin_enable;
+
+    // current position:
+    int position = 0;
+
+    // ticker for poweroff
     Ticker power_off_ticker;
+
+    // private functions
+    void step(int steps = 1);
+    void set_direction(int direction);
+    void set_mode(int mode);
+    void power_on();
+    void power_off(float delay = 0);
+    void power_cycle(float cyle_time = 2);
 
 public:
     Motor(
@@ -25,12 +38,9 @@ public:
         int _pin_mode2,
         int _pin_mode1,
         int _pin_mode0);
-    void step(int steps = 1);
-    void set_direction(int direction);
-    void set_mode(int mode);
-    void power_on();
-    void power_off(float delay = 0);
-    void power_cycle(float cyle_time = 2);
+    int position();
+    void move(int distance, int speed = 100);
+    void moveTo(int target, int speed = 100);
 };
 
 #endif /* MOTOR_H */
