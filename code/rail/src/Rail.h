@@ -16,7 +16,7 @@ private:
     Ticker power_off_ticker;
 
     // private functions
-    void set_direction_to(int target);
+    int set_direction_to(int target);
     unsigned int get_distance_to(int target);
 
 public:
@@ -34,6 +34,7 @@ public:
     int get_step_size();
     void move(int distance, unsigned int speed = MAX_SPEED);
     void move_to(int target, unsigned int speed = MAX_SPEED);
+    Stepper* get_stepper();
 };
 
 #endif /* RAIL_H */

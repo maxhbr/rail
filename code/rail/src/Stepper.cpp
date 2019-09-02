@@ -46,32 +46,32 @@ void Stepper::set_speed(unsigned int _speed)
         Serial.println("Stepper::set_speed " + String(_speed));
         switch (_speed)
         {
-        case 0:
+        case 5:
             digitalWrite(pin_mode0, LOW);
             digitalWrite(pin_mode1, LOW);
-            digitalWrite(pin_mode2, LOW);
-            break;
-        case 1:
-            digitalWrite(pin_mode0, HIGH);
-            digitalWrite(pin_mode1, LOW);
-            digitalWrite(pin_mode2, LOW);
-            break;
-        case 2:
-            digitalWrite(pin_mode0, LOW);
-            digitalWrite(pin_mode1, HIGH);
-            digitalWrite(pin_mode2, LOW);
-            break;
-        case 3:
-            digitalWrite(pin_mode0, HIGH);
-            digitalWrite(pin_mode1, HIGH);
             digitalWrite(pin_mode2, LOW);
             break;
         case 4:
+            digitalWrite(pin_mode0, HIGH);
+            digitalWrite(pin_mode1, LOW);
+            digitalWrite(pin_mode2, LOW);
+            break;
+        case 3:
+            digitalWrite(pin_mode0, LOW);
+            digitalWrite(pin_mode1, HIGH);
+            digitalWrite(pin_mode2, LOW);
+            break;
+        case 2:
+            digitalWrite(pin_mode0, HIGH);
+            digitalWrite(pin_mode1, HIGH);
+            digitalWrite(pin_mode2, LOW);
+            break;
+        case 1:
             digitalWrite(pin_mode0, LOW);
             digitalWrite(pin_mode1, LOW);
             digitalWrite(pin_mode2, HIGH);
             break;
-        case 5:
+        case 0:
             digitalWrite(pin_mode0, HIGH);
             digitalWrite(pin_mode1, HIGH);
             digitalWrite(pin_mode2, HIGH);
@@ -111,15 +111,14 @@ void Stepper::set_direction(int _direction)
 
 void Stepper::step(int steps)
 {
-    // Serial.println("Stepper::step " + String(steps));
+    Serial.println("Stepper::step " + String(steps));
     for (int i = 0; i < steps; i++)
     {
-        // Serial.print(".");
-        delayMicroseconds(100);
+        delayMicroseconds(250);
         digitalWrite(pin_step, HIGH);
-        delayMicroseconds(200);
+        delayMicroseconds(750);
         digitalWrite(pin_step, LOW);
-        delayMicroseconds(100);
+        delayMicroseconds(500);
     }
 }
 

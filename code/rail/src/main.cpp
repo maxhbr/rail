@@ -26,15 +26,15 @@ void loop() {
     if (digitalRead(button_single_step) == LOW)
     {
         ir_sony.shoot();
-        rail.move(15);
+        rail.move(15, 0);
         delay(700);
     }
     else if (digitalRead(button_move_forward) == LOW)
     {
-        rail.move(8);
+        rail.move(32*10);
     }
     else if (digitalRead(button_move_backward) == LOW)
     {
-        rail.move(-8);
+        rail.move(-32*10);
     }
 }

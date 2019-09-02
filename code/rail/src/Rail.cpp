@@ -29,7 +29,7 @@ unsigned int Rail::get_distance_to(int target)
   return abs(target - get_position());
 }
 
-void Rail::set_direction_to(int target)
+int Rail::set_direction_to(int target)
 {
     if (target > position)
     {
@@ -39,6 +39,7 @@ void Rail::set_direction_to(int target)
     {
         stepper.set_direction(DIRECTION_BACKWARD);
     }
+    return stepper.get_direction();
 }
 
 void Rail::move(int distance, unsigned int speed)
@@ -49,7 +50,9 @@ void Rail::move(int distance, unsigned int speed)
 void Rail::move_to(int target, unsigned int speed)
 {
     Serial.println("Rail::move_to " + target);
-    set_direction_to(target);
+    int direction = set_direction_to(target);
+
+    stepper.power_cycle(2);
 
     // TODO:
     // - soft start
@@ -57,7 +60,14 @@ void Rail::move_to(int target, unsigned int speed)
 
     for (int s = speed; s >= 0; s--) {
         stepper.set_speed(s);
-        stepper.step(get_distance_to(target) / stepper.get_step_size());
+        int steps = get_distance_to(target) / stepper.get_step_size();
+        stepper.step(steps);
+        position += steps * direction * stepper.get_step_size();
     }
+}
+
+Stepper* Rail::get_stepper()
+{
+    return &stepper;
 }
 
