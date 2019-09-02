@@ -1,5 +1,6 @@
 #include <Ticker.h>
 #include "Motor.h"
+#include <math.h>
 
 
 Motor::Motor(
@@ -31,63 +32,111 @@ Motor::Motor(
     digitalWrite(pin_reset, HIGH);
 
     power_off();
-    set_mode(1);
+    set_speed(0);
     set_direction(0);
+}
+
+int Motor::get_position()
+{
+    return position;
+}
+
+int Motor::get_speed()
+{
+    return speed;
+}
+
+void Motor::set_speed(unsigned int _speed)
+{
+    if (_speed != get_speed())
+    {
+        Serial.println("Motor::set_speed " + String(_speed));
+        switch (_speed)
+        {
+        case 0:
+            digitalWrite(pin_mode0, LOW);
+            digitalWrite(pin_mode1, LOW);
+            digitalWrite(pin_mode2, LOW);
+            break;
+        case 1:
+            digitalWrite(pin_mode0, HIGH);
+            digitalWrite(pin_mode1, LOW);
+            digitalWrite(pin_mode2, LOW);
+            break;
+        case 2:
+            digitalWrite(pin_mode0, LOW);
+            digitalWrite(pin_mode1, HIGH);
+            digitalWrite(pin_mode2, LOW);
+            break;
+        case 3:
+            digitalWrite(pin_mode0, HIGH);
+            digitalWrite(pin_mode1, HIGH);
+            digitalWrite(pin_mode2, LOW);
+            break;
+        case 4:
+            digitalWrite(pin_mode0, LOW);
+            digitalWrite(pin_mode1, LOW);
+            digitalWrite(pin_mode2, HIGH);
+            break;
+        case 5:
+            digitalWrite(pin_mode0, HIGH);
+            digitalWrite(pin_mode1, HIGH);
+            digitalWrite(pin_mode2, HIGH);
+            break;
+        }
+        speed = _speed;
+    }
+}
+
+int Motor::get_step_size()
+{
+  return pow(2, get_speed());
+}
+
+int Motor::get_direction()
+{
+  return direction;
+}
+
+void Motor::set_direction(int _direction)
+{
+    if (_direction != get_direction()) {
+        Serial.println("Motor::set_direction " + String(_direction));
+        if (_direction == DIRECTION_FORWARD)
+        {
+            digitalWrite(pin_direction, LOW);
+        }
+        else
+        {
+          digitalWrite(pin_direction, HIGH);
+        }
+        direction = _direction;
+    }
+}
+
+void Motor::move(int distance, unsigned int speed)
+{
+    move_to(position + distance, speed);
+}
+
+void Motor::move_to(int target, unsigned int speed)
+{
+    Serial.println("Motor::move_to " + target);
+    synchronized(m_mutex) {
+        // TODO
+    }
 }
 
 void Motor::step(int steps)
 {
     for (int i = 0; i < steps; i++)
     {
+        delayMicroseconds(100);
         digitalWrite(pin_step, HIGH);
         delayMicroseconds(200);
         digitalWrite(pin_step, LOW);
-        delayMicroseconds(200);
+        delayMicroseconds(100);
     }
-}
-
-void Motor::set_mode(int mode)
-{
-    Serial.println("Motor::set_mode " + String(mode));
-    switch (mode)
-    {
-    case 1:
-        digitalWrite(pin_mode0, LOW);
-        digitalWrite(pin_mode1, LOW);
-        digitalWrite(pin_mode2, LOW);
-        break;
-    case 2:
-        digitalWrite(pin_mode0, HIGH);
-        digitalWrite(pin_mode1, LOW);
-        digitalWrite(pin_mode2, LOW);
-        break;
-    case 4:
-        digitalWrite(pin_mode0, LOW);
-        digitalWrite(pin_mode1, HIGH);
-        digitalWrite(pin_mode2, LOW);
-        break;
-    case 8:
-        digitalWrite(pin_mode0, HIGH);
-        digitalWrite(pin_mode1, HIGH);
-        digitalWrite(pin_mode2, LOW);
-        break;
-    case 16:
-        digitalWrite(pin_mode0, LOW);
-        digitalWrite(pin_mode1, LOW);
-        digitalWrite(pin_mode2, HIGH);
-        break;
-    case 32:
-        digitalWrite(pin_mode0, HIGH);
-        digitalWrite(pin_mode1, HIGH);
-        digitalWrite(pin_mode2, HIGH);
-        break;
-    }
-}
-
-void Motor::set_direction(int direction)
-{
-    // Serial.println("Motor::set_direction " + String(direction));
-    digitalWrite(pin_direction, direction);
 }
 
 void Motor::power_on()

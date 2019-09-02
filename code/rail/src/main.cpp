@@ -23,33 +23,27 @@ void setup() {
     pinMode(button_single_step, INPUT_PULLUP);
     pinMode(button_modehalfer, INPUT_PULLUP);
 
-    // attachInterrupt(digitalPinToInterrupt(button_single_step),
+    // attachInterrupt(digitalPinToInterrupt(button_modehalfer),
     //                 []{
-    //                     motor.power_cycle(2);
-    //                     motor.step(20);
-    //                     delay(10);
+    //                     mode *= 2;
+    //                     if (mode > 32)
+    //                         mode = 1;
+    //                     motor.set_mode(mode);
     //                 }, FALLING);
-    attachInterrupt(digitalPinToInterrupt(button_modehalfer),
-                    []{
-                        mode *= 2;
-                        if (mode > 32)
-                            mode = 1;
-                        motor.set_mode(mode);
-                    }, FALLING);
 }
 
 void loop() {
     if (digitalRead(button_single_step) == LOW) {
         ir_sony.shoot();
-        motor.power_cycle(2);
-        delay(300);
-        motor.step(10);
+        motor.move(10);
         delay(700);
     }
-    else if (digitalRead(button_clockwise) == LOW || digitalRead(button_counter_clockwise) == LOW)
+    else if (digitalRead(button_clockwise) == LOW)
     {
-        motor.power_cycle(2);
-        motor.set_direction(digitalRead(button_clockwise));
-        motor.step();
+        motor.move(10);
+    }
+    else if (digitalRead(button_counter_clockwise) == LOW)
+    {
+        motor.move(-10);
     }
 }
