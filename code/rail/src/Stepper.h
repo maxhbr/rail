@@ -1,17 +1,13 @@
-#ifndef MOTOR_H
-#define MOTOR_H
+#ifndef STEPPER_H
+#define STEPPER_H
 
 #include <Arduino.h>
-
-#include <mutex>
-#define synchronized(m) \
-    for(std::unique_lock<std::recursive_mutex> lk(m); lk; lk.unlock())
 
 #define MAX_SPEED ((unsigned int) 5)
 #define DIRECTION_FORWARD ((int) 1)
 #define DIRECTION_BACKWARD ((int) -1)
 
-class Motor
+class Stepper
 {
 private:
     int pin_direction;
@@ -23,26 +19,16 @@ private:
     int pin_mode0;
     int pin_enable;
 
-    // state:
+    // state
     int position = 0;
-    int direction = 1;
+    int direction = DIRECTION_FORWARD;
     int speed = 0;
 
     // ticker for poweroff
     Ticker power_off_ticker;
 
-    // private functions
-    void step(int steps = 1);
-    void set_direction(int _direction);
-    void set_speed(unsigned int _speed);
-    void power_on();
-    void power_cycle(float cyle_time = 2);
-    int get_distance_to(int target);
-
-    std::recursive_mutex m_mutex;
-
 public:
-    Motor(
+    Stepper(
         int _pin_direction,
         int _pin_step,
         int _pin_sleep,
@@ -50,13 +36,15 @@ public:
         int _pin_mode2,
         int _pin_mode1,
         int _pin_mode0);
-    int get_position();
     int get_direction();
+    void set_direction(int _direction);
     int get_speed();
+    void set_speed(unsigned int _speed);
     int get_step_size();
-    void move(int distance, unsigned int max_speed = MAX_SPEED);
-    void move_to(int target, unsigned int max_speed = MAX_SPEED);
+    void step(int steps = 1);
+    void power_on();
+    void power_cycle(float cyle_time = 2);
     void power_off(float delay = 0); // public for the usage in the callback
 };
 
-#endif /* MOTOR_H */
+#endif /* STEPPER_H */

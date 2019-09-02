@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Ticker.h>
 
-#include "Motor.h"
+#include "Rail.h"
 #include "IrSony.h"
 
 const int button_clockwise = 16;
@@ -11,7 +11,7 @@ const int button_modehalfer = 5;
 
 Ticker motorOffTimer;
 
-Motor motor(32, 33, 25, 26, 27, 14, 12);
+Rail rail(32, 33, 25, 26, 27, 14, 12);
 IrSony ir_sony(2);
 
 int mode = 1;
@@ -35,15 +35,15 @@ void setup() {
 void loop() {
     if (digitalRead(button_single_step) == LOW) {
         ir_sony.shoot();
-        motor.move(10);
+        rail.move(10);
         delay(700);
     }
     else if (digitalRead(button_clockwise) == LOW)
     {
-        motor.move(10);
+        rail.move(10);
     }
     else if (digitalRead(button_counter_clockwise) == LOW)
     {
-        motor.move(-10);
+        rail.move(-10);
     }
 }
