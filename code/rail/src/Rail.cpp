@@ -49,17 +49,15 @@ void Rail::move(int distance, unsigned int speed)
 void Rail::move_to(int target, unsigned int speed)
 {
     Serial.println("Rail::move_to " + target);
-    synchronized(m_mutex) {
-        set_direction_to(target);
+    set_direction_to(target);
 
-        // TODO:
-        // - soft start
-        // - configurable slope
+    // TODO:
+    // - soft start
+    // - configurable slope
 
-        for (int s = speed; s >= 0; s--) {
-          stepper.set_speed(s);
-          stepper.step(get_distance_to(target) / stepper.get_step_size());
-        }
+    for (int s = speed; s >= 0; s--) {
+        stepper.set_speed(s);
+        stepper.step(get_distance_to(target) / stepper.get_step_size());
     }
 }
 

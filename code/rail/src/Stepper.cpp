@@ -105,13 +105,16 @@ void Stepper::set_direction(int _direction)
             digitalWrite(pin_direction, HIGH);
         }
         direction = _direction;
+        delayMicroseconds(100);
     }
 }
 
 void Stepper::step(int steps)
 {
+    // Serial.println("Stepper::step " + String(steps));
     for (int i = 0; i < steps; i++)
     {
+        // Serial.print(".");
         delayMicroseconds(100);
         digitalWrite(pin_step, HIGH);
         delayMicroseconds(200);

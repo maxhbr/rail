@@ -3,10 +3,6 @@
 
 #include <Arduino.h>
 
-#include <mutex>
-#define synchronized(m) \
-    for(std::unique_lock<std::recursive_mutex> lk(m); lk; lk.unlock())
-
 #include "Stepper.h"
 
 class Rail
@@ -22,8 +18,6 @@ private:
     // private functions
     void set_direction_to(int target);
     unsigned int get_distance_to(int target);
-
-    std::recursive_mutex m_mutex;
 
 public:
     Rail(

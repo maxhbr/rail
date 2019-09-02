@@ -21,7 +21,7 @@ IrSony::IrSony(int _pin)
     pinMode(pin, OUTPUT);
 }
 
-void IrSony::shoot()
+void IrSony::shoot(int microseconds)
 {
     Serial.println("IrSony::shoot");
     IRsend irsend(pin, true); // TODO: should be in field
@@ -29,4 +29,5 @@ void IrSony::shoot()
     {
         irsend.sendSony(0xB4B8F, 20);
     }
+    delayMicroseconds(microseconds);
 }
