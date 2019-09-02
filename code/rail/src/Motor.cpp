@@ -2,7 +2,6 @@
 #include "Motor.h"
 #include <math.h>
 
-
 Motor::Motor(
     int _pin_direction,
     int _pin_step,
@@ -39,6 +38,11 @@ Motor::Motor(
 int Motor::get_position()
 {
     return position;
+}
+
+int Motor::get_distance_to(int target)
+{
+  return target - get_position();
 }
 
 int Motor::get_speed()
@@ -90,7 +94,7 @@ void Motor::set_speed(unsigned int _speed)
 
 int Motor::get_step_size()
 {
-  return pow(2, get_speed());
+    return pow(2, get_speed());
 }
 
 int Motor::get_direction()
@@ -114,16 +118,57 @@ void Motor::set_direction(int _direction)
     }
 }
 
-void Motor::move(int distance, unsigned int speed)
+void Motor::move(int distance, unsigned int max_speed)
 {
-    move_to(position + distance, speed);
+    move_to(position + distance, max_speed);
 }
 
-void Motor::move_to(int target, unsigned int speed)
+void Motor::move_to(int target, unsigned int max_speed)
 {
     Serial.println("Motor::move_to " + target);
     synchronized(m_mutex) {
-        // TODO
+        if (target > get_position())
+        {
+            set_direction(DIRECTION_FORWARD);
+        }
+        else
+        {
+            set_direction(DIRECTION_BACKWARD);
+        }
+        set_speed(0);
+
+        int distance = get_distance_to(target);
+
+        if (distance <= 3)
+        {
+            step(distance);
+            return;
+        }
+
+        int actual_max_speed = 0;
+        for (int s = 0; s < max_speed; s++)
+        {
+            if (distance <= 4 * (pow(2,s)))
+            {
+                actual_max_speed = s;
+            }
+        }
+
+        for (int s = 0; s <= actual_max_speed; s++)
+        {
+            set_speed(s);
+            step(2);
+        }
+
+        int distances_with_max = max(get_distance_to(target) - 4 * pow(2, actual_max_speed), 0);
+        int steps_with_max = distances_with_max / pow(2, actual_max_speed);
+        step(steps_with_max);
+
+        for (int s = (actual_max_speed - 1); s >= 0; s--)
+        {
+            set_speed(s);
+            step(get_distance_to(target) / pow(2,s));
+        }
     }
 }
 
@@ -136,6 +181,7 @@ void Motor::step(int steps)
         delayMicroseconds(200);
         digitalWrite(pin_step, LOW);
         delayMicroseconds(100);
+        position += get_direction() * get_step_size();
     }
 }
 

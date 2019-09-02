@@ -37,6 +37,7 @@ private:
     void set_speed(unsigned int _speed);
     void power_on();
     void power_cycle(float cyle_time = 2);
+    int get_distance_to(int target);
 
     std::recursive_mutex m_mutex;
 
