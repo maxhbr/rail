@@ -2,6 +2,7 @@
 #define STEPPER_H
 
 #include <Arduino.h>
+#include <Ticker.h>
 
 #define MAX_SPEED ((unsigned int) 5)
 #define DIRECTION_FORWARD ((int) 1)
