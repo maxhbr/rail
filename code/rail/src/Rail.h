@@ -16,7 +16,7 @@ private:
     Ticker power_off_ticker;
 
     // private functions
-    int set_direction_to(int target);
+    void set_direction_to(int target);
     unsigned int get_distance_to(int target);
 
 public:
@@ -34,6 +34,7 @@ public:
     int get_step_size();
     void move(int distance, unsigned int speed = MAX_SPEED);
     void move_to(int target, unsigned int speed = MAX_SPEED);
+    void step(unsigned int speed, unsigned int steps, unsigned int wait_microseconds = 1000);
     Stepper* get_stepper();
 };
 

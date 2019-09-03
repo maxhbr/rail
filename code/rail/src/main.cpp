@@ -16,25 +16,29 @@ int mode = 1;
 void setup() {
     Serial.begin(9600);
 
-    pinMode(button_move_forward, INPUT_PULLUP);
-    pinMode(button_move_backward, INPUT_PULLUP);
-    pinMode(button_single_step, INPUT_PULLUP);
-    pinMode(button_modehalfer, INPUT_PULLUP);
+    pinMode(button_move_forward, INPUT);
+    pinMode(button_move_backward, INPUT);
+    pinMode(button_single_step, INPUT);
+    pinMode(button_modehalfer, INPUT);
 }
 
 void loop() {
-    if (digitalRead(button_single_step) == LOW)
+    if (digitalRead(button_single_step) == HIGH)
     {
         ir_sony.shoot();
         rail.move(15, 0);
         delay(700);
     }
-    else if (digitalRead(button_move_forward) == LOW)
+    else if (digitalRead(button_move_forward) == HIGH)
     {
-        rail.move(32*10);
+        // rail.move(32*10);
+        rail.get_stepper()->power_cycle(2);
+        rail.get_stepper()->step_forward(32);
     }
-    else if (digitalRead(button_move_backward) == LOW)
+    else if (digitalRead(button_move_backward) == HIGH)
     {
-        rail.move(-32*10);
+        // rail.move(-32*10);
+        rail.get_stepper()->power_cycle(2);
+        rail.get_stepper()->step_backward(32);
     }
 }

@@ -21,6 +21,7 @@ private:
     int pin_enable;
 
     // state
+    int is_on = 0;
     int position = 0;
     int direction = DIRECTION_FORWARD;
     int speed = 0;
@@ -42,7 +43,9 @@ public:
     int get_speed();
     void set_speed(unsigned int _speed);
     int get_step_size();
-    void step(int steps = 1);
+    void step(unsigned int steps = 1, unsigned int wait_microseconds = 1000);
+    void step_forward(int steps = 1);
+    void step_backward(int steps = 1);
     void power_on();
     void power_cycle(float cyle_time = 2);
     void power_off(float delay = 0); // public for the usage in the callback
