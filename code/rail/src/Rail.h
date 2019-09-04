@@ -28,8 +28,8 @@ public:
     int get_direction();
     int get_speed();
     int get_step_size();
-    void move(int distance, unsigned int speed = MAX_SPEED);
-    void move_to(int target, unsigned int speed = MAX_SPEED);
+    void move(int distance, unsigned int max_speed = MAX_SPEED);
+    void move_to(int target, unsigned int max_speed = MAX_SPEED);
     void step(int steps, unsigned int speed = 0, unsigned int wait_microseconds = 1000);
 };
 

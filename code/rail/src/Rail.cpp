@@ -29,7 +29,7 @@ void Rail::move(int distance, unsigned int speed)
     move_to(position + distance, speed);
 }
 
-void Rail::move_to(int target, unsigned int speed)
+void Rail::move_to(int target, unsigned int max_speed)
 {
     Serial.println("Rail::move_to " + target);
 
@@ -37,10 +37,10 @@ void Rail::move_to(int target, unsigned int speed)
     // - soft start
     // - configurable slope
 
-    for (int s = speed; s >= 0; s--)
+    for (int speed = max_speed; speed >= 0; speed--)
     {
-        int steps = (target - get_position()) / pow(2, s);
-        step(s, steps);
+        int steps = (target - get_position()) / pow(2, speed);
+        step(speed, steps);
     }
 }
 
