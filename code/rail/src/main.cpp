@@ -13,6 +13,7 @@ Ticker motorOffTimer;
 
 Motor motor(32, 33, 25, 26, 27, 14, 12);
 IrSony ir_sony(2);
+Display display()
 
 int mode = 1;
 
