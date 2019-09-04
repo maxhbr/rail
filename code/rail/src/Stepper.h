@@ -29,6 +29,12 @@ private:
     // ticker for poweroff
     Ticker power_off_ticker;
 
+    // private functions
+    void set_direction(int _direction);
+    void set_speed(unsigned int _speed);
+    void power_on();
+    void power_cycle(float cyle_time = 2);
+
 public:
     Stepper(
         int _pin_direction,
@@ -39,15 +45,9 @@ public:
         int _pin_mode1,
         int _pin_mode0);
     int get_direction();
-    void set_direction(int _direction);
     int get_speed();
-    void set_speed(unsigned int _speed);
     int get_step_size();
-    void step(unsigned int steps = 1, unsigned int wait_microseconds = 1000);
-    void step_forward(int steps = 1);
-    void step_backward(int steps = 1);
-    void power_on();
-    void power_cycle(float cyle_time = 2);
+    void step(int steps = 1, unsigned int _speed = 0, unsigned int wait_microseconds = 1000);
     void power_off(float delay = 0); // public for the usage in the callback
 };
 

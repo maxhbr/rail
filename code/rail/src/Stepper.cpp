@@ -110,10 +110,19 @@ void Stepper::set_direction(int _direction)
     }
 }
 
-void Stepper::step(unsigned int steps, unsigned int wait_microseconds)
+void Stepper::step(int steps, unsigned int _speed, unsigned int wait_microseconds)
 {
-    Serial.println("Stepper::step " + String(steps) + "@" + get_speed() + " (with wait " + wait_microseconds + ")");
-    for (int i = 0; i < steps; i++)
+    Serial.println("Stepper::step " + String(steps) + "@" + String(_speed) + " (with wait " + String(wait_microseconds) + ")");
+
+    power_cycle(2);
+
+    int sgnSteps = (steps > 0) - (steps < 0);
+    int absSteps = abs(steps);
+
+    set_speed(_speed);
+    set_direction(sgnSteps);
+
+    for (int i = 0; i < absSteps; i++)
     {
         delayMicroseconds(100);
         digitalWrite(pin_step, HIGH);
@@ -122,18 +131,6 @@ void Stepper::step(unsigned int steps, unsigned int wait_microseconds)
         delayMicroseconds(100);
         delayMicroseconds(wait_microseconds);
     }
-}
-
-void Stepper::step_forward(int steps)
-{
-    set_direction(DIRECTION_FORWARD);
-    step(steps);
-}
-
-void Stepper::step_backward(int steps)
-{
-    set_direction(DIRECTION_BACKWARD);
-    step(steps);
 }
 
 void Stepper::power_on()

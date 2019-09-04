@@ -31,14 +31,12 @@ void loop() {
     }
     else if (digitalRead(button_move_forward) == HIGH)
     {
-        // rail.move(32*10);
-        rail.get_stepper()->power_cycle(2);
-        rail.get_stepper()->step_forward(32);
+        // rail.move(32);
+        rail.step(32);
     }
     else if (digitalRead(button_move_backward) == HIGH)
     {
-        // rail.move(-32*10);
-        rail.get_stepper()->power_cycle(2);
-        rail.get_stepper()->step_backward(32);
+        // rail.move(-32);
+        rail.step(-32);
     }
 }
