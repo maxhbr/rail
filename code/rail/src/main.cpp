@@ -6,7 +6,7 @@
 const int button_move_forward = 16;
 const int button_move_backward = 4;
 const int button_single_step = 17;
-const int button_modehalfer = 5;
+// const int button_modehalfer = 5;
 
 Rail rail(32, 33, 25, 26, 27, 14, 12);
 IrSony ir_sony(2);
@@ -19,7 +19,7 @@ void setup() {
     pinMode(button_move_forward, INPUT);
     pinMode(button_move_backward, INPUT);
     pinMode(button_single_step, INPUT);
-    pinMode(button_modehalfer, INPUT);
+    // pinMode(button_modehalfer, INPUT);
 }
 
 void loop() {
