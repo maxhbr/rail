@@ -2,6 +2,7 @@
 
 #include "Rail.h"
 #include "IrSony.h"
+#include "Display.h"
 
 const int button_move_forward = 16;
 const int button_move_backward = 4;
@@ -9,6 +10,7 @@ const int button_single_step = 17;
 
 Rail rail(32, 33, 25, 26, 27, 14, 12);
 // IrSony ir_sony(0);
+Display display(21, 22);
 
 void setup() {
     Serial.begin(9600);
