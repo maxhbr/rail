@@ -27,14 +27,12 @@ void loop() {
     }
     else if (digitalRead(button_move_forward) == HIGH)
     {
-        Serial.write("forward");
-        // rail.move(32);
+        // Serial.write("+");
         rail.step(32, 1);
     }
     else if (digitalRead(button_move_backward) == HIGH)
     {
-        Serial.write("backward");
-        // rail.move(-32);
+        // Serial.write("-");
         rail.step(-32, 1);
     }
 }
