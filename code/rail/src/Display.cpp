@@ -1,19 +1,41 @@
-// #include <SPI.h>
 #include <Wire.h>
-#include <SSD1306.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include "SSD1306Wire.h"
 
 #include "Display.h"
 
-#define SSD1306_I2C_ADDRESS 0x3b
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 32 // OLED display height, in pixels
 
-Display::Display(int _pin_sda,
-                 int _pin_sck)
-    : display(SSD1306_I2C_ADDRESS, _pin_sda, _pin_sck, GEOMETRY_128_32)
+
+
+#define SSD1306_I2C_ADDRESS 0x3c
+
+Display::Display()
+    : display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1)
 {
-    display.setTextAlignment(TEXT_ALIGN_LEFT);
-    display.setFont(ArialMT_Plain_16);
-    display.drawString(0, 0, "Hello World!");
+
+    if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3D)) { // Address 0x3D for 128x64
+        Serial.println(F("SSD1306 allocation failed"));
+        for(;;);
+    }
+    Serial.println(F("SSD1306 allocation succeeded"));
+
+    delay(20000);
+    display.clearDisplay();
+    Serial.println("Display is initialized");
+}
+
+void Display::printHello() {
+    Serial.println("Display::printHello()");
+    display.clearDisplay();
+
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0, 10);
+    // Display static text
+    display.println("Hello World");
+    display.display();
+
+    delay(20000);
 }

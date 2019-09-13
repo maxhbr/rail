@@ -10,7 +10,7 @@ const int button_single_step = 17;
 
 Rail rail(32, 33, 25, 26, 27, 14, 12);
 // IrSony ir_sony(0);
-Display display(21, 22);
+// Display display;
 
 void setup() {
     Serial.begin(9600);
@@ -18,6 +18,8 @@ void setup() {
     pinMode(button_move_forward, INPUT);
     pinMode(button_move_backward, INPUT);
     pinMode(button_single_step, INPUT);
+
+    display.printHello();
 }
 
 void loop() {
