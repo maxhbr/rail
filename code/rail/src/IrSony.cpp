@@ -25,7 +25,8 @@ void IrSony::shoot(int microseconds)
 {
     Serial.println("IrSony::shoot");
     IRsend irsend(pin, true); // TODO: should be in field
-    for (int i=0; i<3; i++){
+    for (int i=0; i<3; i++)
+    {
         irsend.sendSony(0xB4B8F, 20);
     }
     delayMicroseconds(microseconds);
