@@ -40,7 +40,7 @@ void Rail::move_to(int target, unsigned int max_speed)
     for (int speed = max_speed; speed >= 0; speed--)
     {
         int steps = (target - get_position()) / pow(2, speed);
-        step(speed, steps);
+        step(steps, speed);
     }
 }
 
