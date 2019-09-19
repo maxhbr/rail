@@ -27,12 +27,22 @@ void loop() {
     }
     else if (digitalRead(button_move_forward) == HIGH)
     {
-        // Serial.write("+");
-        rail.step(32, 1);
+#ifdef DEBUG_BUILD
+        Serial.write("+");
+#endif
+        rail.move(32, 3);
+#ifdef DEBUG_BUILD
+        rail.log_state();
+#endif
     }
     else if (digitalRead(button_move_backward) == HIGH)
     {
-        // Serial.write("-");
-        rail.step(-32, 1);
+#ifdef DEBUG_BUILD
+        Serial.write("-");
+#endif
+        rail.move(-32, 3);
+#ifdef DEBUG_BUILD
+        rail.log_state();
+#endif
     }
 }
