@@ -19,26 +19,14 @@ void setup() {
 void loop() {
     if (digitalRead(button_single_step) == HIGH)
     {
-        rail.stack(10);
+        rail.stack(100);
     }
     else if (digitalRead(button_move_forward) == HIGH)
     {
-#ifdef DEBUG_BUILD
-        Serial.write("+");
-#endif
         rail.move(32, 3);
-#ifdef DEBUG_BUILD
-        rail.log_state();
-#endif
     }
     else if (digitalRead(button_move_backward) == HIGH)
     {
-#ifdef DEBUG_BUILD
-        Serial.write("-");
-#endif
         rail.move(-32, 3);
-#ifdef DEBUG_BUILD
-        rail.log_state();
-#endif
     }
 }

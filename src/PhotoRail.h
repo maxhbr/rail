@@ -36,6 +36,7 @@ public:
     void move_to_right(unsigned int max_speed = MAX_SPEED);
 
     void stack(unsigned int shots);
+    void shoot(int microseconds = 0);
 
     void log_state();
 };

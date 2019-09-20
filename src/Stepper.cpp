@@ -116,7 +116,7 @@ void Stepper::step(int steps, unsigned int _speed, unsigned int wait_microsecond
     Serial.println("Stepper::step " + String(steps) + "@" + String(_speed) + " (with wait " + String(wait_microseconds) + ")");
 #endif
 
-    power_cycle(2);
+    power_cycle(4);
 
     int sgnSteps = (steps > 0) - (steps < 0);
     int absSteps = abs(steps);
@@ -173,5 +173,5 @@ void Stepper::power_cycle(float cycle_time)
 
 void Stepper::log_state()
 {
-    Serial.println("Stepper::log_state: " + String(get_speed()) + " " + String(get_step_size()) + " " + String(get_direction()));
+    Serial.println("Stepper::log_state: speed=" + String(get_speed()) + " step_size=" + String(get_step_size()) + " direction=" + String(get_direction()));
 }

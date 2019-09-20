@@ -67,17 +67,21 @@ void PhotoRail::stack(unsigned int shots)
     int start_pos = Rail::get_position();
     int end_pos = start_pos == left ? right : left;
     int distance = end_pos - start_pos;
-    int distance_between_shots = distance / shots;
-    Serial.println("PhotoRail::stack " + String(shots) + " ( " + String(start_pos) + " " + String(end_pos) + " " + String(distance) + " " + String(distance_between_shots) + " )");
-
+    int distance_between_shots = distance / ((int) shots);
     log_state();
+    Serial.println("PhotoRail::stack shots=" + String(shots)
+                   + " ( start_pos=" + String(start_pos)
+                   + " end_pos=" + String(end_pos)
+                   + " distance=" + String(distance)
+                   + " distance_between_shots=" + String(distance_between_shots)
+                   + " )");
 
-    for (int i = 0; i < shots; i++) {
+
+    for (int i = 1; i <= shots; i++) {
         Rail::move(distance_between_shots, 0);
         delay(1000);
         Serial.println("shoot " + String(i) + " of " + String(shots));
-        ir_sony.shoot();
-        delay(300);
+        shoot(300 * 1000);
         log_state();
     }
 
@@ -85,9 +89,14 @@ void PhotoRail::stack(unsigned int shots)
     log_state();
 }
 
+void PhotoRail::shoot(int microseconds)
+{
+    ir_sony.shoot(microseconds);
+}
+
 void PhotoRail::log_state()
 {
-    Serial.println("PhotoRail::log_state: " + String(left) + " " + String(right));
+    Serial.println("PhotoRail::log_state: left=" + String(left) + " right=" + String(right));
     Rail::log_state();
 }
 
