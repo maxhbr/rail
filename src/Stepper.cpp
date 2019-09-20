@@ -112,7 +112,9 @@ void Stepper::set_direction(int _direction)
 
 void Stepper::step(int steps, unsigned int _speed, unsigned int wait_microseconds)
 {
+#ifdef DEBUG_BUILD
     Serial.println("Stepper::step " + String(steps) + "@" + String(_speed) + " (with wait " + String(wait_microseconds) + ")");
+#endif
 
     power_cycle(2);
 
@@ -167,4 +169,9 @@ void Stepper::power_cycle(float cycle_time)
         delayMicroseconds(1000);
     }
     power_off(cycle_time);
+}
+
+void Stepper::log_state()
+{
+    Serial.println("Stepper::log_state: " + String(get_speed()) + " " + String(get_step_size()) + " " + String(get_direction()));
 }

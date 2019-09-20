@@ -49,6 +49,8 @@ public:
     int get_step_size();
     void step(int steps = 1, unsigned int _speed = 0, unsigned int wait_microseconds = 1000);
     void power_off(float delay = 0); // public for the usage in the callback
+
+    void log_state();
 };
 
 #endif /* STEPPER_H */

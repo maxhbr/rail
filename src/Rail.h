@@ -31,6 +31,8 @@ public:
     void move(int distance, unsigned int max_speed = MAX_SPEED);
     void move_to(int target, unsigned int max_speed = MAX_SPEED);
     void step(int steps, unsigned int speed = 0, unsigned int wait_microseconds = 1000);
+
+    void log_state();
 };
 
 #endif /* RAIL_H */

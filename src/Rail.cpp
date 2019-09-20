@@ -1,6 +1,7 @@
 #include <Ticker.h>
-#include "Rail.h"
 #include <math.h>
+
+#include "Rail.h"
 
 Rail::Rail(
     int _pin_direction,
@@ -31,7 +32,9 @@ void Rail::move(int distance, unsigned int speed)
 
 void Rail::move_to(int target, unsigned int max_speed)
 {
+#ifdef DEBUG_BUILD
     Serial.println("Rail::move_to " + target);
+#endif
 
     // TODO:
     // - soft start
@@ -44,7 +47,8 @@ void Rail::move_to(int target, unsigned int max_speed)
     }
 }
 
-void Rail::step(int steps, unsigned int speed, unsigned int wait_microseconds){
+void Rail::step(int steps, unsigned int speed, unsigned int wait_microseconds)
+{
     if (steps == 0)
     {
         return;
@@ -52,5 +56,11 @@ void Rail::step(int steps, unsigned int speed, unsigned int wait_microseconds){
 
     Stepper::step(steps, speed, wait_microseconds);
     position += steps * Stepper::get_step_size();
+}
+
+void Rail::log_state()
+{
+    Serial.println("Rail::log_state: " + String(get_position()));
+    Stepper::log_state();
 }
 
