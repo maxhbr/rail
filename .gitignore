@@ -7,3 +7,4 @@ _*
 .vscode/ipch
 .pioenvs/
 .piolibdeps/
+*.orig
