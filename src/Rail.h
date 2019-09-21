@@ -32,6 +32,8 @@ public:
     void move_to(int target, unsigned int max_speed = MAX_SPEED);
     void step(int steps, unsigned int speed = 0, unsigned int wait_microseconds = 1000);
 
+    int round();
+
     void log_state();
 };
 

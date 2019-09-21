@@ -76,9 +76,13 @@ void PhotoRail::stack(unsigned int shots)
                    + " distance_between_shots=" + String(distance_between_shots)
                    + " )");
 
-
+    int last_offset = 0;
     for (int i = 1; i <= shots; i++) {
-        Rail::move(distance_between_shots, 0);
+        Rail::move(distance_between_shots + last_offset, 0);
+        if (distance_between_shots > 32)
+        {
+            last_offset = Rail::round();
+        }
         delay(1000);
         Serial.println("shoot " + String(i) + " of " + String(shots));
         shoot(300 * 1000);

@@ -41,6 +41,8 @@ void loop() {
     else if (digitalRead(button_alt) == HIGH)
     {
         rail.log_state();
+        digitalWrite(status_led, HIGH);
         delay(1000);
+        digitalWrite(status_led, LOW);
     }
 }
