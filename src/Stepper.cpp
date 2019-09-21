@@ -43,7 +43,6 @@ void Stepper::set_speed(unsigned int _speed)
 {
     if (_speed != get_speed())
     {
-        Serial.println("Stepper::set_speed " + String(_speed));
         switch (_speed)
         {
         case 5:
@@ -83,12 +82,12 @@ void Stepper::set_speed(unsigned int _speed)
 
 int Stepper::get_step_size()
 {
-    return pow(2, get_speed());
+    return 1 << speed;
 }
 
 int Stepper::get_direction()
 {
-  return direction;
+    return direction;
 }
 
 void Stepper::set_direction(int _direction)
@@ -112,9 +111,7 @@ void Stepper::set_direction(int _direction)
 
 void Stepper::step(int steps, unsigned int _speed, unsigned int wait_microseconds)
 {
-#ifdef DEBUG_BUILD
-    Serial.println("Stepper::step " + String(steps) + "@" + String(_speed) + " (with wait " + String(wait_microseconds) + ")");
-#endif
+    // Serial.println("Stepper::step " + String(steps) + "@" + String(_speed) + " (with wait " + String(wait_microseconds) + ")");
 
     power_cycle(4);
 
@@ -143,7 +140,7 @@ void Stepper::power_on()
     is_on = 1;
 }
 
-void callback(Stepper *stepper)
+static void callback(Stepper *stepper)
 {
     stepper->power_off();
 }

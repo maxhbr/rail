@@ -25,26 +25,24 @@ int Rail::get_position()
     return position;
 }
 
-void Rail::move(int distance, unsigned int speed)
+void Rail::move(int distance, unsigned int max_speed)
 {
-    move_to(position + distance, speed);
+    for (int speed = max_speed; speed >= 0; speed--)
+    {
+        int steps = distance >> speed;
+        step(steps, speed);
+        distance -= steps << speed;
+    }
 }
 
 void Rail::move_to(int target, unsigned int max_speed)
 {
-#ifdef DEBUG_BUILD
-    Serial.println("Rail::move_to " + target);
-#endif
 
     // TODO:
     // - soft start
     // - configurable slope
+    move(target - position, max_speed);
 
-    for (int speed = max_speed; speed >= 0; speed--)
-    {
-        int steps = (target - get_position()) / pow(2, speed);
-        step(steps, speed);
-    }
 }
 
 void Rail::step(int steps, unsigned int speed, unsigned int wait_microseconds)
@@ -63,4 +61,3 @@ void Rail::log_state()
     Serial.println("Rail::log_state: position=" + String(get_position()));
     Stepper::log_state();
 }
-

@@ -38,4 +38,9 @@ void loop() {
     {
         rail.move(-32, 3);
     }
+    else if (digitalRead(button_alt) == HIGH)
+    {
+        rail.log_state();
+        delay(1000);
+    }
 }
