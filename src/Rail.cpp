@@ -60,7 +60,7 @@ void Rail::step(int steps, unsigned int speed, unsigned int wait_microseconds)
 
 void Rail::log_state()
 {
-    Serial.println("Rail::log_state: " + String(get_position()));
+    Serial.println("Rail::log_state: position=" + String(get_position()));
     Stepper::log_state();
 }
 
