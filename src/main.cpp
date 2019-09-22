@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <ESPAsyncWebServer.h>
 
+#include "AsyncWorker.h"
 #include "PhotoRail.h"
 
 const int button_move_forward = 16;
@@ -12,19 +13,8 @@ const char *ssid = "***";
 const char *password = "***";
 
 PhotoRail rail(32, 33, 25, 26, 27, 14, 12, 2);
-
 AsyncWebServer server(80);
-QueueHandle_t queue;
-
-void dotask(void *parameter)
-{
-    while (1)
-    {
-        int distance;
-        xQueueReceive(queue, &distance, portMAX_DELAY);
-        rail.move(distance, 3);
-    }
-}
+AsyncWorker asyncworker;
 
 void setup() {
     Serial.begin(9600);
@@ -33,8 +23,6 @@ void setup() {
 
     while (WiFi.status() != WL_CONNECTED);
     Serial.println(WiFi.localIP());
-
-    queue = xQueueCreate(2, sizeof(int));
 
     server.on(
         "/move",
@@ -49,20 +37,11 @@ void setup() {
             }
             int distance = (int) ntohl(*(uint32_t *)data);
             unsigned int max_speed = ntohl(*(uint32_t *)(data + 4));
-            // Serial.println("post: distance = " + String(distance));
-            // rail.move(distance, max_speed);
-            xQueueSend(queue, &distance, portMAX_DELAY);
+            std::function<void()> func = [distance, max_speed](){ rail.move(distance, max_speed); };
+            asyncworker.exec(&func);
             request->send(200);
         });
     server.begin();
-
-    xTaskCreate(
-        dotask,                  /* pvTaskCode */
-        "Workload1",            /* pcName */
-        10000,                   /* usStackDepth */
-        NULL,                   /* pvParameters */
-        3,                      /* uxPriority */
-        NULL);                /* pxCreatedTask */
 
 
     pinMode(button_move_forward, INPUT);
