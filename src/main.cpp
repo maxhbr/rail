@@ -8,7 +8,9 @@ const int button_start = 17;
 const int button_alt = 5;
 const int status_led = 15;
 
-PhotoRail rail(32, 33, 25, 26, 27, 14, 12, 2);
+PhotoRail rail(32, 33, 25, 26, 27, 14, 12,
+               35, 34, // limit switches
+               2); // ir led
 
 void setup() {
     Serial.begin(9600);
