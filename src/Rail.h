@@ -23,7 +23,9 @@ public:
         int _pin_reset,
         int _pin_mode2,
         int _pin_mode1,
-        int _pin_mode0);
+        int _pin_mode0,
+        int _pin_limit_top,
+        int _pin_limit_bottom);
     int get_position();
     int get_direction();
     int get_speed();

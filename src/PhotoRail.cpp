@@ -11,6 +11,8 @@ PhotoRail::PhotoRail(
     int _pin_mode2,
     int _pin_mode1,
     int _pin_mode0,
+    int _pin_limit_top,
+    int _pin_limit_bottom,
     int _pin_ir)
     : Rail(_pin_direction,
            _pin_step,
@@ -18,7 +20,9 @@ PhotoRail::PhotoRail(
            _pin_reset,
            _pin_mode2,
            _pin_mode1,
-           _pin_mode0)
+           _pin_mode0,
+           _pin_limit_top,
+           _pin_limit_bottom)
     , ir_sony(_pin_ir)
 {}
 

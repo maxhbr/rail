@@ -20,6 +20,10 @@ private:
     int pin_mode0;
     int pin_enable;
 
+    // sensors
+    int pin_limit_top;
+    int pin_limit_bottom;
+
     // state
     int is_on = 0;
     int position = 0;
@@ -43,11 +47,14 @@ public:
         int _pin_reset,
         int _pin_mode2,
         int _pin_mode1,
-        int _pin_mode0);
+        int _pin_mode0,
+        int _pin_limit_top,
+        int _pin_limit_bottom);
     int get_direction();
+    bool is_at_limit();
     int get_speed();
     int get_step_size();
-    void step(int steps = 1, unsigned int _speed = 0, unsigned int wait_microseconds = 1000);
+    int step(int steps = 1, unsigned int _speed = 0, unsigned int wait_microseconds = 1000);
     void power_off(float delay = 0); // public for the usage in the callback
 
     void log_state();

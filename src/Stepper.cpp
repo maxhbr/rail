@@ -8,7 +8,9 @@ Stepper::Stepper(
     int _pin_reset,
     int _pin_mode2,
     int _pin_mode1,
-    int _pin_mode0)
+    int _pin_mode0,
+    int _pin_limit_top,
+    int _pin_limit_bottom)
 {
     pin_direction = _pin_direction;
     pin_step = _pin_step;
@@ -18,6 +20,9 @@ Stepper::Stepper(
     pin_mode1 = _pin_mode1;
     pin_mode0 = _pin_mode0;
 
+    pin_limit_top = _pin_limit_top;
+    pin_limit_bottom = _pin_limit_bottom;
+
     pinMode(pin_direction, OUTPUT);
     pinMode(pin_step, OUTPUT);
     pinMode(pin_sleep, OUTPUT);
@@ -26,6 +31,9 @@ Stepper::Stepper(
     pinMode(pin_mode1, OUTPUT);
     pinMode(pin_mode0, OUTPUT);
     pinMode(pin_enable, OUTPUT);
+
+    pinMode(pin_limit_top, INPUT);
+    pinMode(pin_limit_bottom, INPUT);
 
     digitalWrite(pin_reset, HIGH);
 
@@ -90,6 +98,19 @@ int Stepper::get_direction()
     return direction;
 }
 
+bool Stepper::is_at_limit()
+{
+    if (get_direction() == 1)
+    {
+        return digitalRead(pin_limit_top) == HIGH;
+    }
+    else if (get_direction() == -1)
+    {
+        return digitalRead(pin_limit_bottom) == HIGH;
+    }
+    return false;
+}
+
 void Stepper::set_direction(int _direction)
 {
     if (_direction != get_direction())
@@ -109,7 +130,7 @@ void Stepper::set_direction(int _direction)
     }
 }
 
-void Stepper::step(int steps, unsigned int _speed, unsigned int wait_microseconds)
+int Stepper::step(int steps, unsigned int _speed, unsigned int wait_microseconds)
 {
     // Serial.println("Stepper::step " + String(steps) + "@" + String(_speed) + " (with wait " + String(wait_microseconds) + ")");
 
@@ -121,15 +142,23 @@ void Stepper::step(int steps, unsigned int _speed, unsigned int wait_microsecond
     set_speed(_speed);
     set_direction(sgnSteps);
 
+    int distance = 0;
+
     for (int i = 0; i < absSteps; i++)
     {
-        delayMicroseconds(100);
-        digitalWrite(pin_step, HIGH);
-        delayMicroseconds(200);
-        digitalWrite(pin_step, LOW);
-        delayMicroseconds(100);
-        delayMicroseconds(wait_microseconds);
+        if (! is_at_limit())
+        {
+            delayMicroseconds(100);
+            digitalWrite(pin_step, HIGH);
+            delayMicroseconds(200);
+            digitalWrite(pin_step, LOW);
+            delayMicroseconds(100);
+            delayMicroseconds(wait_microseconds);
+            distance += get_step_size();
+        }
     }
+
+    return sgnSteps * distance;
 }
 
 void Stepper::power_on()

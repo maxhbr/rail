@@ -26,6 +26,8 @@ public:
         int _pin_mode2,
         int _pin_mode1,
         int _pin_mode0,
+        int _pin_limit_top,
+        int _pin_limit_bottom,
         int _pin_ir);
 
     void move(int distance, unsigned int max_speed = MAX_SPEED);
