@@ -37,12 +37,10 @@ void Rail::move(int distance, unsigned int max_speed)
 
 void Rail::move_to(int target, unsigned int max_speed)
 {
-
     // TODO:
     // - soft start
     // - configurable slope
     move(target - position, max_speed);
-
 }
 
 void Rail::step(int steps, unsigned int speed, unsigned int wait_microseconds)
@@ -54,6 +52,22 @@ void Rail::step(int steps, unsigned int speed, unsigned int wait_microseconds)
 
     Stepper::step(steps, speed, wait_microseconds);
     position += steps * Stepper::get_step_size();
+}
+
+int Rail::round()
+{
+    int mod = ((get_position() % 32) + 32) % 32;
+    int offset;
+    if (mod <= 16)
+    {
+        offset = - mod;
+    }
+    else
+    {
+        offset = 32 - mod;
+    }
+    move(offset);
+    return - offset;
 }
 
 void Rail::log_state()
