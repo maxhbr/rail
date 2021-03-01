@@ -81,7 +81,8 @@ void PhotoRail::stack(unsigned int shots)
         Rail::move(distance_between_shots, 0);
         delay(1000);
         Serial.println("shoot " + String(i) + " of " + String(shots));
-        shoot(300 * 1000);
+        shoot(300);
+        delay(500);
         log_state();
     }
 
@@ -89,9 +90,9 @@ void PhotoRail::stack(unsigned int shots)
     log_state();
 }
 
-void PhotoRail::shoot(int microseconds)
+void PhotoRail::shoot(int miliseconds)
 {
-    ir_sony.shoot(microseconds);
+    ir_sony.shoot(miliseconds * 1000);
 }
 
 void PhotoRail::log_state()

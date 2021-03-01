@@ -42,15 +42,15 @@ void setup() {
 void loop() {
     if (digitalRead(button_start) == HIGH)
     {
-        rail.stack(100);
+        rail.stack(300);
     }
     else if (digitalRead(button_move_forward) == HIGH)
     {
-        rail.move(32, 3);
+        rail.move(8, 2);
     }
     else if (digitalRead(button_move_backward) == HIGH)
     {
-        rail.move(-32, 3);
+        rail.move(-8, 2);
     }
     else if (digitalRead(button_alt) == HIGH)
     {
